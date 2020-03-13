@@ -54,7 +54,7 @@ class ListCharacters extends Component {
   }
 
   updateCharactersList(response) {
-    console.log("resp: ", response);
+    console.log("api: ", response);
     if (response.total > 0) {
       const data = response.results;
       const slice = data.slice(
@@ -66,7 +66,7 @@ class ListCharacters extends Component {
         <Character
           key={item.id}
           name={item.name}
-          description={item.name}
+          description={item.description}
           thumb={item.thumbnail}
         />
       ));
@@ -99,14 +99,14 @@ class ListCharacters extends Component {
     return (
       <div className="characters">
         <header>
-          <h2>Characters</h2>
+          <h2>Marvel Characters</h2>
         </header>
         <div>
           <button
             onClick={this.randomCharacters}
             className="characters__btn-random"
           >
-            Get Characters
+            Random
           </button>
         </div>
 
