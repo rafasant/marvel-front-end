@@ -31,6 +31,7 @@ class ListCharacters extends Component {
     super(props);
 
     this.state = {
+      isLoading: true,
       characters: [],
       offset: 0,
       perPage: 10,
@@ -69,11 +70,11 @@ class ListCharacters extends Component {
           thumb={item.thumbnail}
         />
       ));
-
-      console.log(slice);
       this.setState({
+        characters: response.results.slice(),
         pageCount: Math.ceil(response.results.length / this.state.perPage),
-        postData
+        postData,
+        isLoading: false
       });
     }
   }
@@ -85,7 +86,8 @@ class ListCharacters extends Component {
     this.setState(
       {
         currentPage: selectedPage,
-        offset: offset
+        offset: offset,
+        isLoading: true
       },
       () => {
         retrieveCharacters(this.updateCharactersList);
@@ -108,7 +110,11 @@ class ListCharacters extends Component {
           </button>
         </div>
 
-        <div className="characters__list">{this.state.postData}</div>
+        {!this.state.isLoading ? (
+          <div className="characters__list">{this.state.postData}</div>
+        ) : (
+          "loading..."
+        )}
 
         <ReactPaginate
           previousLabel={"prev"}
